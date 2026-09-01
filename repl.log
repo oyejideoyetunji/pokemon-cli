@@ -1,0 +1,7 @@
+
+> learn-ts@1.0.0 dev /Users/oyejideoyetunji/Documents/boot.dev/learn-ts
+> npx tsc && node dist/index.js
+
+Pokedex > Your command was: charmander
+Pokedex > Your command was: pikachu
+Pokedex > 
