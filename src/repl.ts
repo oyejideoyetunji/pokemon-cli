@@ -1,11 +1,11 @@
 import type { State } from "./state.js";
 
 
-export function startREPL(state: State) {
+export async function startREPL(state: State) {
     const { rl, commands } = state;
     rl.prompt()
 
-    rl.on("line", (input) => {
+    rl.on("line", async (input) => {
         if (!input?.trim()) {
             return rl.prompt();
         }
@@ -17,7 +17,7 @@ export function startREPL(state: State) {
         }
 
         try {
-            command.callback(state);
+            await command.callback(state);
             return rl.prompt();
         } catch (error: any) {
             console.log(error?.message)
