@@ -9,6 +9,7 @@ import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { PokeAPI, type Pokemon } from "./pokeapi.js";
 import { Cache } from "./pokecache.js";
+import { commandPokedex } from "./command_pokedex.js";
 
 
 export type CLICommand = {
@@ -70,6 +71,11 @@ export function initState(): State {
       name: "inspect",
       description: "inspect: See the details of a pokemon you have caught before",
       callback: commandInspect
+    },
+    pokedex: {
+      name: "pokedex",
+      description: "pokedex: Shows the names of all the pokemon the iser has caught",
+      callback: commandPokedex
     }
   };
 
