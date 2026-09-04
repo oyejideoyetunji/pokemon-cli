@@ -1,12 +1,13 @@
 import { stdin, stdout } from "node:process";
 import { createInterface, type Interface } from "node:readline";
+import { commandCatch } from "./command_catch.js";
 import { commandExit } from "./command_exit.js";
+import { commandExplore } from "./command_explore.js";
 import { commandHelp } from "./command_help.js";
 import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
-import { PokeAPI } from "./pokeapi.js";
+import { PokeAPI, type Pokemon } from "./pokeapi.js";
 import { Cache } from "./pokecache.js";
-import { commandExplore } from "./command_explore.js";
 
 
 export type CLICommand = {
@@ -20,6 +21,7 @@ export type State = {
   pokeApi: PokeAPI;
   nextLocationsURL?: string;
   prevLocationsURL?: string;
+  pokedex: Record<string, Pokemon>;
   commands: Record<string, CLICommand>;
 }
 
@@ -57,8 +59,13 @@ export function initState(): State {
       name: "explore",
       description: "explore: See the pokemon names of a give location, pass the location name as argument",
       callback: commandExplore
+    },
+    catch: {
+      name: "catch",
+      description: "catch: Catches a pokemon",
+      callback: commandCatch
     }
   };
 
-  return { rl, pokeApi, commands }
+  return { rl, pokeApi, commands, pokedex: {} }
 }

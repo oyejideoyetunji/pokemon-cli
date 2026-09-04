@@ -2,15 +2,6 @@
 > learn-ts@1.0.0 dev /Users/oyejideoyetunji/Documents/boot.dev/learn-ts
 > npx tsc && node dist/index.js
 
-Pokedex > Found Pokemon: 
-tentacool
-tentacruel
-magikarp
-gyarados
-remoraid
-octillery
-wingull
-pelipper
-shellos
-gastrodon
+Pokedex > Throwing a Pokeball at squirtle...
+squirtle was caught!
 Pokedex > Closing the Pokedex... Goodbye!

@@ -29,22 +29,41 @@ export class PokeAPI {
     }
   }
 
-  async fetchLocation(locationName: string): Promise<Location> {
+  async fetchLocation(key: string): Promise<Location> {
     try {
-      const cacheEntry = this.#cache.get<Location>(locationName);
+      const cacheEntry = this.#cache.get<Location>(key);
       if(cacheEntry?.value){
         console.log("Fetched from cache");
         return cacheEntry?.value;
       }
 
-      const response = await fetch(`${PokeAPI.baseURL}/location-area/${locationName}`);
+      const response = await fetch(`${PokeAPI.baseURL}/location-area/${key}`);
       const location = await response.json() as Location;
 
-      this.#cache.add(locationName, location)
+      this.#cache.add(key, location)
 
       return location;
     } catch (error: any) {
       throw new Error("Failed to fetch locations, Error: ", error);
+    }
+  }
+
+  async fetchPokemon(name: string): Promise<Pokemon> {
+    try {
+      const cacheEntry = this.#cache.get<Pokemon>(name);
+      if(cacheEntry?.value){
+        console.log("Fetched from cache");
+        return cacheEntry?.value;
+      }
+
+      const response = await fetch(`${PokeAPI.baseURL}/pokemon/${name}`);
+      const pokemon = await response.json() as Pokemon;
+
+      this.#cache.add(name, pokemon);
+
+      return pokemon;
+    } catch (error: any) {
+      throw new Error("Failed to fetch pokemon, Error: ", error);
     }
   }
 }
@@ -104,3 +123,48 @@ type EncounterMethodRateVersion = {
   rate: number;
   version: Resource;
 };
+
+
+
+export type Pokemon = {
+  id: number;
+  name: string;
+  base_experience: number;
+  height: number;
+  is_default: boolean;
+  order: number;
+  weight: number;
+  abilities: Ability[];
+  past_abilities: PastAbility[];
+  forms: Resource[];
+  game_indicies: GameIndex[];
+  held_items: HeldItem[];
+  location_area_encounters: string;
+
+}
+
+type Ability = {
+  slot: number;
+  is_hidden: boolean;
+  ability: Resource;
+}
+
+type PastAbility = {
+  generation: Resource;
+  abilities: Ability[];
+}
+
+type GameIndex = {
+  game_index: number;
+  version: Resource;
+}
+
+type HeldItem = {
+  item: Resource;
+  version_details: HeldItemVersionDetails[];
+}
+
+type HeldItemVersionDetails = {
+  rarity: number;
+  version: Resource;
+}
