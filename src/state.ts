@@ -4,6 +4,7 @@ import { commandCatch } from "./command_catch.js";
 import { commandExit } from "./command_exit.js";
 import { commandExplore } from "./command_explore.js";
 import { commandHelp } from "./command_help.js";
+import { commandInspect } from "./command_inspect.js";
 import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { PokeAPI, type Pokemon } from "./pokeapi.js";
@@ -64,6 +65,11 @@ export function initState(): State {
       name: "catch",
       description: "catch: Catches a pokemon",
       callback: commandCatch
+    },
+    inspect: {
+      name: "inspect",
+      description: "inspect: See the details of a pokemon you have caught before",
+      callback: commandInspect
     }
   };
 

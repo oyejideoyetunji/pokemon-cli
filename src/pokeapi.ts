@@ -140,7 +140,8 @@ export type Pokemon = {
   game_indicies: GameIndex[];
   held_items: HeldItem[];
   location_area_encounters: string;
-
+  stats: Stat[];
+  types: PokemonType[];
 }
 
 type Ability = {
@@ -167,4 +168,15 @@ type HeldItem = {
 type HeldItemVersionDetails = {
   rarity: number;
   version: Resource;
+}
+
+type Stat = {
+  base_stat: number,
+  effort: number,
+  stat: Resource,
+}
+
+type PokemonType = {
+  slot: number;
+  type: Resource;
 }
