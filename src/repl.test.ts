@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { cleanInput } from "./repl.js";
 
 describe.each([
@@ -19,7 +19,7 @@ describe.each([
     expected: ["check", "check,", "check", "the", "microphone"],
   }
 ])("cleanInput($input)", ({ input, expected }) => {
-    test(`Expected: ${expected}`, () => {
+    it(`Expectes: ${expected}`, () => {
         const actual = cleanInput(input);
 
         expect(actual).toHaveLength(expected.length);
