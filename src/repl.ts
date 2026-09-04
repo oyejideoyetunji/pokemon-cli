@@ -10,14 +10,15 @@ export async function startREPL(state: State) {
             return rl.prompt();
         }
 
-        const command = commands[input]
+        const [commandKey, ...params] = cleanInput(input);
+        const command = commands[commandKey as string]
 
         if (!command) {
             return console.log("Unknown Command");
         }
 
         try {
-            await command.callback(state);
+            await command.callback(state, ...params);
             return rl.prompt();
         } catch (error: any) {
             console.log(error?.message)

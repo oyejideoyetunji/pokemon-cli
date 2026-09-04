@@ -5,12 +5,14 @@ import { commandHelp } from "./command_help.js";
 import { commandMap } from "./command_map.js";
 import { commandMapB } from "./command_mapb.js";
 import { PokeAPI } from "./pokeapi.js";
+import { Cache } from "./pokecache.js";
+import { commandExplore } from "./command_explore.js";
 
 
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (state: State) => Promise<void>;
+  callback: (state: State, ...args: string[]) => Promise<void>;
 };
 
 export type State = {
@@ -28,7 +30,7 @@ export function initState(): State {
     prompt: "Pokedex > ",
   });
 
-  const pokeApi = new PokeAPI();
+  const pokeApi = new PokeAPI(new Cache(120000));
 
   const commands: Record<string, CLICommand> = {
     help: {
@@ -48,8 +50,13 @@ export function initState(): State {
     },
     mapb: {
       name: "mapb",
-      description: "map: Displays the next 20 location areas in the Pokemon world",
+      description: "mapb: Displays the next 20 location areas in the Pokemon world",
       callback: commandMapB
+    },
+    explore: {
+      name: "explore",
+      description: "explore: See the pokemon names of a give location, pass the location name as argument",
+      callback: commandExplore
     }
   };
 
